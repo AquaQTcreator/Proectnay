@@ -35,6 +35,7 @@ Window {
         anchors.top: textEditLogin.bottom
         anchors.left: textEditLogin.left
         anchors.topMargin: 10
+        color: "green"
         text:"Данные пользователей обнаружены"
     }
 

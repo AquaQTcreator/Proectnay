@@ -34,6 +34,6 @@ void Authorizacia::getDataAutorizacia(QString login, QString password)
         QStandardItem *item2 = new QStandardItem(email);
         myModel->appendRow({item1, item2});
     }
-
+    qDebug()<<"1";
     qDebug()<<QSqlDatabase::drivers();
 }
