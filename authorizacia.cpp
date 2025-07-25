@@ -21,19 +21,21 @@ Authorizacia::Authorizacia(QObject *parent) : QObject(parent)
 
 void Authorizacia::getDataAutorizacia(QString login, QString password)
 {
-    QSqlQuery query("SELECT * FROM users");
-
-    if (!query.isActive()) {
-        qDebug() << "Ошибка выполнения запроса:" << query.lastError().text();
-    }
-    myModel->clear();
-    while (query.next()) {
-        QString name = query.value("username").toString();
-        QString email = query.value("email").toString();
-        QStandardItem *item1 = new QStandardItem(name);
-        QStandardItem *item2 = new QStandardItem(email);
-        myModel->appendRow({item1, item2});
-    }
-    qDebug()<<"1";
-    qDebug()<<QSqlDatabase::drivers();
+//    QSqlQuery query("SELECT * FROM users");
+//    if (!query.isActive()) {
+//        qDebug() << "Ошибка выполнения запроса:" << query.lastError().text();
+//    }
+//    myModel->clear();
+//    while (query.next()) {
+//         login = query.value("username").toString();
+//         password = query.value("email").toString();
+//        QStandardItem *item1 = new QStandardItem(login);
+//        QStandardItem *item2 = new QStandardItem(password);
+//        myModel->appendRow({item1, item2});
+//    }
+        QSqlQuery query;
+        query.prepare("SELECT EXISTS (SELECT 1 FROM users WHERE email = '"+SignUp::dataToHash(login)+"' AND password = '"+SignUp::dataToHash(password)+"')");
+        if (query.exec() && query.next()) {
+        if (query.value(0).toBool()) emit myLoginAndPassFinded();
+        }
 }

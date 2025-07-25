@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>Authorizacia.qml</file>
+        <file>Registracia.qml</file>
     </qresource>
 </RCC>

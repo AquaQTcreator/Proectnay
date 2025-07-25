@@ -1,7 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include "authorizacia.h"
-
+#include "signup.h"
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -17,7 +17,8 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
-        qmlRegisterType<Authorizacia>("Authorizacia",1,0,"Authorizacia");
+        qmlRegisterType<Authorizacia>("AuthorizaciaClass",1,0,"AuthorizaciaClass");
+        qmlRegisterType<SignUp>("SignUp",1,0,"SignUp");
     engine.load(url);
     return app.exec();
 }

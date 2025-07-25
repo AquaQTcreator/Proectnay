@@ -5,6 +5,8 @@
 #include <QSqlDatabase>
 #include <QtSql>
 #include <QStandardItemModel>
+#include "signup.h"
+
 class Authorizacia : public QObject
 {
     Q_OBJECT
@@ -28,6 +30,7 @@ private:
 
 signals:
     void myModelChanged();
+    void myLoginAndPassFinded();
 };
 
 #endif // AUTHORIZACIA_H

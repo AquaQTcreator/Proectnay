@@ -9,7 +9,8 @@ CONFIG += c++11
 
 SOURCES += \
         authorizacia.cpp \
-        main.cpp
+        main.cpp \
+        signup.cpp
 
 RESOURCES += qml.qrc
 
@@ -25,4 +26,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    authorizacia.h
+    authorizacia.h \
+    signup.h
