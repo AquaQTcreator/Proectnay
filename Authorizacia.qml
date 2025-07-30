@@ -103,7 +103,9 @@ Item {
             MouseArea {
                 id:mouseAreaSignUp
                 anchors.fill: parent
-                onClicked:stackPage.push(registraciaQml)
+                onClicked: //testPhoto.visible = true
+                    //myModelClass.sendImage()
+                    stackPage.push(registraciaQml)
             }
         }
     }

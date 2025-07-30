@@ -4,6 +4,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import AuthorizaciaClass 1.0
 import SignUp 1.0
+
 ApplicationWindow {
     id:mainWindow
     width: 428
@@ -28,6 +29,11 @@ ApplicationWindow {
         visible: false
         id:registraciaQml
     }
+    TestPhoto {
+        id:testPhoto
+        visible: false
+    }
+
     SignUp {
         id:signUp
         onStatusSignUp: {
@@ -35,4 +41,5 @@ ApplicationWindow {
             console.log(status)
         }
     }
+
 }

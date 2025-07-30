@@ -9,7 +9,9 @@ CONFIG += c++11
 
 SOURCES += \
         authorizacia.cpp \
+        imageget.cpp \
         main.cpp \
+        mymodel.cpp \
         signup.cpp
 
 RESOURCES += qml.qrc
@@ -27,4 +29,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     authorizacia.h \
+    imageget.h \
+    mymodel.h \
     signup.h
