@@ -33,9 +33,13 @@ void Authorizacia::getDataAutorizacia(QString login, QString password)
 //        QStandardItem *item2 = new QStandardItem(password);
 //        myModel->appendRow({item1, item2});
 //    }
-        QSqlQuery query;
-        query.prepare("SELECT EXISTS (SELECT 1 FROM users WHERE email = '"+SignUp::dataToHash(login)+"' AND password = '"+SignUp::dataToHash(password)+"')");
-        if (query.exec() && query.next()) {
-        if (query.value(0).toBool()) emit myLoginAndPassFinded();
-        }
+
+
+    emit myLoginAndPassFinded();
+
+//        QSqlQuery query;
+//        query.prepare("SELECT EXISTS (SELECT 1 FROM users WHERE email = '"+SignUp::dataToHash(login)+"' AND password = '"+SignUp::dataToHash(password)+"')");
+//        if (query.exec() && query.next()) {
+//        if (query.value(0).toBool()) emit myLoginAndPassFinded();
+//        }
 }

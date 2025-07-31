@@ -38,7 +38,7 @@ void SignUp::getDataForSignUp(QString name, QString lastname, QString login, QSt
             }
         }
         else if (otherSymbol != 0) status = "В пароле разрешены только цифры и латинские буквы";
-        else { status = "Количество символов цифр ,заглавных букв ,букв\n каждым минимум 3 "; }
+        else { status = "Количество символов цифр ,заглавных букв ,букв каждым минимум 3 "; }
     }
     else { status = "Пусто в строчках"; }
     if (password.length() >=12) status = "Количество всех символов должно быть меньше 12 ";

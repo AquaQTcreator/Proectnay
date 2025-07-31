@@ -3,6 +3,20 @@
         <file>main.qml</file>
         <file>Authorizacia.qml</file>
         <file>Registracia.qml</file>
-        <file>TestPhoto.qml</file>
+        <file>MainMenu.qml</file>
+        <file>assets/image/home_2.png</file>
+        <file>assets/image/Message_write.png</file>
+        <file>assets/image/Search.png</file>
+        <file>assets/image/user_1.png</file>
+        <file>assets/image/labelMain.png</file>
+        <file>assets/image/labelRecepie.png</file>
+        <file>assets/image/labelWhatNeed.png</file>
+        <file>assets/image/Hamburger_LG.png</file>
+        <file>assets/image/breakfast.png</file>
+        <file>assets/image/dinner.png</file>
+        <file>assets/image/supper.png</file>
+        <file>assets/image/addRecepie.png</file>
+        <file>assets/image/famous.png</file>
+        <file>assets/image/myRecepie.png</file>
     </qresource>
 </RCC>

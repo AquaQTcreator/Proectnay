@@ -1,21 +1,47 @@
 #ifndef MYMODEL_H
 #define MYMODEL_H
 
-#include "authorizacia.h"
-#include <QQuickImageProvider>
-#include <QImage>
-#include "imageget.h"
-class MyModel:public QObject
+#include <QObject>
+#include <QAbstractListModel>
+#include <QStandardItemModel>
+#include <authorizacia.h>
+
+#define TABLE                   "ImageTable"       // Название таблицы
+#define TABLE_NAME              "Name"              // Вторая колонка
+#define TABLE_PIC               "Img"
+
+class MyModel:public QAbstractListModel
 {
     Q_OBJECT
 public:
+
+    enum Roles {
+        IdRole = Qt::UserRole + 1,
+        NameRole,
+        ImageRole
+    };
+
     explicit MyModel(QObject*parent = nullptr);
-    Q_INVOKABLE void sendImage();
-    Q_INVOKABLE void getImage();
-    void setProvider(ImageGet *provider);
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+    QHash<int, QByteArray> roleNames() const override;
+
+    Q_INVOKABLE void setImageToDB();
+    Q_INVOKABLE void loadFromDatabase();
+
+    bool insertDataToDB(const QVariantList &data);
+    bool insetIntoTable(const QString &name, const QByteArray &img);
 
 private:
-    ImageGet *m_provider = nullptr;
+    struct Item {
+        int id;
+        QString name;
+        QByteArray image;
+    };
+    QList<Item> m_items;
+signals:
+    void myModelChanged();
+    void myModelCreate();
 };
 
 #endif // MYMODEL_H

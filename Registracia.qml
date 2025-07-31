@@ -140,14 +140,18 @@ Item {
             onClicked: if (textFieldPassword.text == textFieldreturnPassword.text) {
                            signUp.getDataForSignUp(textFieldName.text,textFieldLastName.text,textFieldLogin.text,textFieldPassword.text)
                        }
-                       else console.log ("passwords not same");
+                       else statusQml = "Пароли не совпадают"
         }
-        Label {
-            id:labelStatus
-            x:30
-            y:628
+        Text {
+            id:textStatus
+            x:61
+            y:620
+            width: 310
             text: statusQml
-            font.pixelSize: 14
+            wrapMode: Text.Wrap
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            font.pixelSize: 12
             color: "Red"
         }
 

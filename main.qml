@@ -4,7 +4,7 @@ import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
 import AuthorizaciaClass 1.0
 import SignUp 1.0
-
+import MyModel 1.0
 ApplicationWindow {
     id:mainWindow
     width: 428
@@ -14,26 +14,60 @@ ApplicationWindow {
     StackView {
         id:stackPage
         initialItem: authorizaciaQml
+
+        pushEnter: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 0
+                to:1
+                duration: 200
+            }
+        }
+        pushExit: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 1
+                to:0
+                duration: 200
+            }
+        }
+        popEnter: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 0
+                to:1
+                duration: 200
+            }
+        }
+        popExit: Transition {
+            PropertyAnimation {
+                property: "opacity"
+                from: 1
+                to:0
+                duration: 200
+            }
+        }
     }
+
     AuthorizaciaClass {
         id:authorizaciaClass
         onMyLoginAndPassFinded: {
             console.log("Данные найдены");
-            stackPage.push(registraciaQml)
+            myModel.loadFromDatabase()
         }
     }
     Authorizacia {
         id:authorizaciaQml
+        visible: false
     }
     Registracia {
         visible: false
         id:registraciaQml
     }
-    TestPhoto {
-        id:testPhoto
+    MainMenu {
+        id:mainMenuQml
         visible: false
     }
-
     SignUp {
         id:signUp
         onStatusSignUp: {
@@ -41,5 +75,8 @@ ApplicationWindow {
             console.log(status)
         }
     }
-
+    MyModel {
+        id:myModel
+        onMyModelCreate: stackPage.push(mainMenuQml)
+    }
 }
