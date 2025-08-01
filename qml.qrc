@@ -18,5 +18,7 @@
         <file>assets/image/addRecepie.png</file>
         <file>assets/image/famous.png</file>
         <file>assets/image/myRecepie.png</file>
+        <file>Profil.qml</file>
+        <file>NavigatePanel.qml</file>
     </qresource>
 </RCC>

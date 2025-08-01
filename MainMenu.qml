@@ -7,6 +7,7 @@ Item {
     height: mainWindow.height
     width: mainWindow.width
     Rectangle {
+        id:mainRect
         anchors.fill: parent
         color: Qt.rgba(189/255,114/255,216/255,1)
         Button {
@@ -59,8 +60,8 @@ Item {
             x:0
             y:132
             model:["qrc:/assets/image/addRecepie.png"
-            ,"qrc:/assets/image/famous.png"
-            ,"qrc:/assets/image/myRecepie.png"]
+                ,"qrc:/assets/image/famous.png"
+                ,"qrc:/assets/image/myRecepie.png"]
             delegate: Image {
                 source: modelData
                 width: 130
@@ -91,8 +92,8 @@ Item {
             x:0
             y:310
             model:["qrc:/assets/image/dinner.png"
-            ,"qrc:/assets/image/supper.png"
-            ,"qrc:/assets/image/breakfast.png"]
+                ,"qrc:/assets/image/supper.png"
+                ,"qrc:/assets/image/breakfast.png"]
             delegate: Image {
                 source: modelData
                 width: 130
@@ -121,7 +122,7 @@ Item {
 
             model: myModel
             clip: true
-   //         anchors.leftMargin: 20
+            //         anchors.leftMargin: 20
 
             delegate: Rectangle {
                 height: 150
@@ -172,52 +173,56 @@ Item {
                 }
             }
         }
+        NavigatePanel {
+            anchors.bottom: parent.bottom
+            id:myBottomPanel
+            onShowProfil: {
+                mainRect.enabled = false
+                pageLoader.source = "Profil.qml"
+                myAnimationStart.start()
+            }
+        }
+
         Rectangle {
-            anchors.bottom: navigatePanel.top
+            anchors.bottom: myBottomPanel.top
             width: parent.width
             height: 2
             color: "white"
         }
 
-        Rectangle {
-            id:navigatePanel
-            anchors.bottom: parent.bottom
-            width: parent.width
-            height: 90
-            color: "black"
-            Image {
-                x:16
-                y:12
-                height: 70
-                width:70
-                id: homeButton
-                source: "qrc:/assets/image/home_2.png"
-            }
-            Image {
-                id: seachButton
-                x:117
-                y:14
-                height: 62
-                width:62
-                source: "qrc:/assets/image/Search.png"
-            }
-            Image {
-                id:chatPanel
-                x:241
-                y:14
-                height: 70
-                width:65
-                source: "qrc:/assets/image/Message_write.png"
-            }
-            Image {
-                id: userButton
-                x:343
-                y:25
-                height: 50
-                width:50
-                source: "qrc:/assets/image/user_1.png"
-            }
+        NumberAnimation { //showAnimation
+            id:myAnimationStart
+            targets: [pageLoader]
+            properties: "x"
+            to: 0
+            duration: 200
         }
 
+        NumberAnimation { //closeAnimation
+            id:myAnimationClose
+            target: pageLoader
+            property: "x"
+            to:-428
+            duration: 200
+            onStopped:  {
+                mainRect.enabled = true
+                pageLoader.source = ""
+            }
+        }
+    }
+
+    Loader {
+        id:pageLoader
+        x:-428
+        y:0
+        source: ""
+    }
+
+    Connections {
+        target: pageLoader.item
+        onCloseThisItem: {
+            console.log("123")
+            myAnimationClose.start()
+        }
     }
 }
