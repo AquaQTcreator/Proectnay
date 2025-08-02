@@ -20,5 +20,6 @@
         <file>assets/image/myRecepie.png</file>
         <file>Profil.qml</file>
         <file>NavigatePanel.qml</file>
+        <file>assets/image/user_black.png</file>
     </qresource>
 </RCC>

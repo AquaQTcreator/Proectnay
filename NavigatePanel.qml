@@ -6,6 +6,13 @@ Item {
     height: 90
     signal showProfil()
     Rectangle {
+        anchors.bottom: navigatePanel.top
+        height: 2
+        width: parent.width
+        color: "white"
+    }
+
+    Rectangle {
         id:navigatePanel
         width: 428
         height: 90

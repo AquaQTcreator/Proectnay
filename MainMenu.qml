@@ -6,6 +6,12 @@ import QtGraphicalEffects 1.0
 Item {
     height: mainWindow.height
     width: mainWindow.width
+
+    property string sendName: ""
+    property string sendLastName: ""
+    property string sendLogin: ""
+    property string sendPassword: ""
+
     Rectangle {
         id:mainRect
         anchors.fill: parent
@@ -178,16 +184,14 @@ Item {
             id:myBottomPanel
             onShowProfil: {
                 mainRect.enabled = false
+                ////////
                 pageLoader.source = "Profil.qml"
-                myAnimationStart.start()
+                pageLoader.item.nameQml = sendName
+                pageLoader.item.lastNameQml = sendLastName
+                pageLoader.item.loginQml = sendLogin
+                pageLoader.item.passwordQml = sendPassword
+                        myAnimationStart.start()
             }
-        }
-
-        Rectangle {
-            anchors.bottom: myBottomPanel.top
-            width: parent.width
-            height: 2
-            color: "white"
         }
 
         NumberAnimation { //showAnimation
@@ -221,7 +225,6 @@ Item {
     Connections {
         target: pageLoader.item
         onCloseThisItem: {
-            console.log("123")
             myAnimationClose.start()
         }
     }

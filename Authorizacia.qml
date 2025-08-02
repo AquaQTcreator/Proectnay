@@ -70,7 +70,7 @@ Item {
                 color: Qt.rgba(166/255,166/255,166/255,1)
             }
         }
-        RoundButton {
+        RoundButton {//Вход
             x:mainWindow.width/7.37
             y:mainWindow.height/1.69
             height: mainWindow.height/21.04

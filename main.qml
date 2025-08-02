@@ -54,6 +54,10 @@ ApplicationWindow {
         onMyLoginAndPassFinded: {
             console.log("Данные найдены");
             myModel.loadFromDatabase()
+            mainMenuQml.sendName = name;
+            mainMenuQml.sendLastName = lastName;
+            mainMenuQml.sendLogin = login;
+            mainMenuQml.sendPassword = password;
         }
     }
     Authorizacia {
@@ -72,7 +76,6 @@ ApplicationWindow {
         id:signUp
         onStatusSignUp: {
             statusQml = status;
-            console.log(status)
         }
     }
     MyModel {

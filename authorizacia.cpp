@@ -34,12 +34,18 @@ void Authorizacia::getDataAutorizacia(QString login, QString password)
 //        myModel->appendRow({item1, item2});
 //    }
 
-
-    emit myLoginAndPassFinded();
+    QString name = "Ivan";
+    QString lastName = "Chislov";
+    emit myLoginAndPassFinded(name,lastName,login,password);
 
 //        QSqlQuery query;
 //        query.prepare("SELECT EXISTS (SELECT 1 FROM users WHERE email = '"+SignUp::dataToHash(login)+"' AND password = '"+SignUp::dataToHash(password)+"')");
 //        if (query.exec() && query.next()) {
 //        if (query.value(0).toBool()) emit myLoginAndPassFinded();
-//        }
+    //        }
+}
+
+void Authorizacia::getDataAboutUser(QString login, QString password)
+{
+
 }
