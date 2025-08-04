@@ -11,7 +11,8 @@ Item {
     property string sendLastName: ""
     property string sendLogin: ""
     property string sendPassword: ""
-
+    signal sendPicture(string picture)
+    onSendPicture: pageLoader.item.img.source = picture
     Rectangle {
         id:mainRect
         anchors.fill: parent
@@ -226,6 +227,12 @@ Item {
         target: pageLoader.item
         onCloseThisItem: {
             myAnimationClose.start()
+        }
+        onOpenFileProvider: {
+            if(!fileDialog.visible) {
+           fileDialog.open()
+            }
+            else console.log("Not open")
         }
     }
 }

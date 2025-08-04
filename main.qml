@@ -2,6 +2,7 @@ import QtQuick 2.12
 import QtQml 2.12
 import QtQuick.Window 2.12
 import QtQuick.Controls 2.12
+import Qt.labs.platform 1.1
 import AuthorizaciaClass 1.0
 import SignUp 1.0
 import MyModel 1.0
@@ -82,4 +83,16 @@ ApplicationWindow {
         id:myModel
         onMyModelCreate: stackPage.push(mainMenuQml)
     }
+    FileDialog {
+        id:fileDialog
+        folder:"file:///D:/Pictures/"
+        nameFilters: ["PNG Files (*.png)"]
+        onAccepted: {
+            profilUser.setImageToDB(fileDialog.file);
+//
+            console.log(fileDialog.file)
+            //mainMenuQml.sendPicture(fileDialog.file)
+     //       profil.visible = true
+        }
+}
 }

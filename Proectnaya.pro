@@ -1,6 +1,6 @@
 QT += quick
 QT += sql
-
+QT += widgets
 CONFIG += c++11
 
 # You can make your code fail to compile if it uses deprecated APIs.
@@ -11,6 +11,7 @@ SOURCES += \
         authorizacia.cpp \
         main.cpp \
         mymodel.cpp \
+        profiluser.cpp \
         signup.cpp
 
 RESOURCES += qml.qrc
@@ -29,4 +30,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     authorizacia.h \
     mymodel.h \
+    profiluser.h \
     signup.h

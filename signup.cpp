@@ -26,8 +26,8 @@ void SignUp::getDataForSignUp(QString name, QString lastname, QString login, QSt
             query.prepare("SELECT EXISTS (SELECT 1 FROM users WHERE email = '"+dataToHash(login)+"' AND password = '"+dataToHash(password)+"')");
             if (query.exec() && query.next()) {
                 if (!query.value(0).toBool()) {
-                    query.prepare("INSERT INTO users (first_name,last_name,email,password) VALUES ('"+dataToHash(name)+"',"
-                     " '"+dataToHash(lastname)+"','"+dataToHash(login)+"','"+dataToHash(password)+"');");
+                    query.prepare("INSERT INTO users (first_name,last_name,email,password) VALUES ('"+name+"',"
+                     " '"+lastname+"','"+dataToHash(login)+"','"+dataToHash(password)+"');");
                     if (!query.exec()) {
                         status = "Ошибка регистрации";
                     } else {

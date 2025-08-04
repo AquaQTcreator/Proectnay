@@ -6,22 +6,37 @@ Item {
     width: 428
     id:profilItem
     signal closeThisItem()
+    signal openFileProvider();
     property string nameQml: ""
     property string lastNameQml: ""
     property string loginQml: ""
     property string passwordQml: ""
+    property int index: 7
+    Connections {
+        target: profilUser
+        onChangedPhoto: {
+            img.source = profilUser.getUserPhoto(7)
+        }
+    }
 
     Rectangle{
         anchors.fill: parent
         color:Qt.rgba(125/255,254/255,177/255,1)
         Image {
+            id:img
             x:77
             y:75
             width: 254
             height:214
-            source: "qrc:/assets/image/user_black.png"
+            source: profilUser.getUserPhoto(7)
+            fillMode: Image.PreserveAspectFit
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    openFileProvider()
+                }
+            }
         }
-
         Rectangle {
             x:12
             y:318

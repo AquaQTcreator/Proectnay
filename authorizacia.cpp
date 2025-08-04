@@ -21,21 +21,22 @@ Authorizacia::Authorizacia(QObject *parent) : QObject(parent)
 
 void Authorizacia::getDataAutorizacia(QString login, QString password)
 {
-//    QSqlQuery query("SELECT * FROM users");
-//    if (!query.isActive()) {
-//        qDebug() << "Ошибка выполнения запроса:" << query.lastError().text();
-//    }
-//    myModel->clear();
-//    while (query.next()) {
-//         login = query.value("username").toString();
-//         password = query.value("email").toString();
-//        QStandardItem *item1 = new QStandardItem(login);
-//        QStandardItem *item2 = new QStandardItem(password);
-//        myModel->appendRow({item1, item2});
-//    }
+    QString name;
+    QString lastName;
+    QSqlQuery query("SELECT*FROM users Where first_name = 'Ivan'");
+    if (!query.isActive()) {
+        qDebug() << "Ошибка выполнения запроса:" << query.lastError().text();
+    }
+    myModel->clear();
+    while (query.next()) {
+         name = query.value("first_name").toString();
+         lastName = query.value("last_name").toString();
+        QStandardItem *item1 = new QStandardItem(login);
+        QStandardItem *item2 = new QStandardItem(password);
+        myModel->appendRow({item1, item2});
+    }
 
-    QString name = "Ivan";
-    QString lastName = "Chislov";
+
     emit myLoginAndPassFinded(name,lastName,login,password);
 
 //        QSqlQuery query;

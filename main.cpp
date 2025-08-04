@@ -1,16 +1,17 @@
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include "authorizacia.h"
 #include "signup.h"
 #include <QQmlContext>
 #include "mymodel.h"
+#include "profiluser.h"
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
 
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
     const QUrl url(QStringLiteral("qrc:/main.qml"));
@@ -19,7 +20,8 @@ int main(int argc, char *argv[])
         if (!obj && url == objUrl)
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
-
+    profilUser myProfil;
+    engine.rootContext()->setContextProperty("profilUser",&myProfil);
     qmlRegisterType<Authorizacia>("AuthorizaciaClass",1,0,"AuthorizaciaClass");
     qmlRegisterType<SignUp>("SignUp",1,0,"SignUp");
     qmlRegisterType<MyModel>("MyModel",1,0,"MyModel");
