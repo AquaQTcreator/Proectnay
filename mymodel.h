@@ -28,7 +28,7 @@ public:
 
     Q_INVOKABLE void setImageToDB();
     Q_INVOKABLE void loadFromDatabase();
-
+    Q_INVOKABLE void seachName(QString title,QString parametr);
     bool insertDataToDB(const QVariantList &data);
     bool insetIntoTable(const QString &name, const QByteArray &img);
 

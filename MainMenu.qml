@@ -57,7 +57,7 @@ Item {
             source: "qrc:/assets/image/labelMain.png"
         }
 
-        ListView {
+        ListView { ////////////////////INSRTUMENTI
             id:listElementTool
             orientation: ListView.Horizontal
             width: parent.width
@@ -89,7 +89,7 @@ Item {
             source: "qrc:/assets/image/labelWhatNeed.png"
         }
 
-        ListView {
+        ListView {     ///////////ZAVTRAKI
             id:listElementpox
             orientation: ListView.Horizontal
             width: parent.width
@@ -117,7 +117,7 @@ Item {
             source: "qrc:/assets/image/labelRecepie.png"
         }
 
-        GridView {
+        GridView { //////////////////VODEL
             id:mainListView
             anchors.left: parent.left
             anchors.leftMargin: 40
@@ -129,7 +129,6 @@ Item {
 
             model: myModel
             clip: true
-            //         anchors.leftMargin: 20
 
             delegate: Rectangle {
                 height: 150
@@ -143,7 +142,7 @@ Item {
                     anchors.left: parent.left
                     anchors.right: parent.right
                     anchors.margins: 2
-                    height: 130  // 130 - 4 (по 2px с каждой стороны)
+                    height: 130
                     radius:6.5
                     clip: true
                     color: "black"
@@ -191,7 +190,12 @@ Item {
                 pageLoader.item.lastNameQml = sendLastName
                 pageLoader.item.loginQml = sendLogin
                 pageLoader.item.passwordQml = sendPassword
-                        myAnimationStart.start()
+                myAnimationStart.start()
+            }
+            onSeachName: {
+                seach.visible = true
+                offSeachFon.visible = true
+                mainRect.enabled = false
             }
         }
 
@@ -215,6 +219,33 @@ Item {
             }
         }
     }
+    Rectangle {    ///////////////FON
+        id:offSeachFon
+        anchors.fill: parent
+        color: "black"
+        opacity: 0.5
+        visible: false
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                offSeachFon.visible = false
+                mainRect.enabled = true
+                seach.visible = false
+            }
+        }
+    }
+    SeachItem {
+        id:seach
+        anchors.centerIn: parent
+        width: parent.width
+        height: 301
+        visible: false
+        onPoisk: {
+            seach.visible = false
+            offSeachFon.visible = false
+            mainRect.enabled = true
+        }
+    }
 
     Loader {
         id:pageLoader
@@ -230,7 +261,7 @@ Item {
         }
         onOpenFileProvider: {
             if(!fileDialog.visible) {
-           fileDialog.open()
+                fileDialog.open()
             }
             else console.log("Not open")
         }

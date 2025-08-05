@@ -21,5 +21,6 @@
         <file>Profil.qml</file>
         <file>NavigatePanel.qml</file>
         <file>assets/image/user_black.png</file>
+        <file>SeachItem.qml</file>
     </qresource>
 </RCC>

@@ -5,6 +5,7 @@ Item {
     width: 428
     height: 90
     signal showProfil()
+    signal seachName()
     Rectangle {
         anchors.bottom: navigatePanel.top
         height: 2
@@ -33,6 +34,10 @@ Item {
             height: 62
             width:62
             source: "qrc:/assets/image/Search.png"
+            MouseArea {
+                anchors.fill: parent
+                onClicked: root.seachName()
+            }
         }
         Image {
             id:chatPanel

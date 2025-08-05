@@ -111,3 +111,21 @@ void MyModel::loadFromDatabase()
     endResetModel();
     emit myModelCreate();
 }
+
+void MyModel::seachName(QString title,QString parametr)
+{
+    beginResetModel();
+    m_items.clear();
+    title = "Снимок экрана 2025-05-11 131944.png";
+    QSqlQuery query;
+    query.exec("SELECT id,Name,Img FROM ImageTable Where "+parametr+" = '"+title+"'");
+    while (query.next()) {
+        Item item;
+        item.id = query.value(0).toInt();
+        item.name = query.value(1).toString();
+        item.image = query.value(2).toByteArray();
+        m_items.append(item);
+    }
+    endResetModel();
+
+}

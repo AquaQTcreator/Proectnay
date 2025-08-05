@@ -5,7 +5,7 @@
 
 #define TABLE                   "profilTable"       // Название таблицы
 #define TABLE_NAME              "Name"              // Вторая колонка
-#define TABLE_PIC               "LastName"
+#define TABLE_LASTNAME               "LastName"
 #define TABLE_IMG               "Photo"
 class profilUser:public QObject
 {
