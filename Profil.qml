@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.12
+import QtQml 2.12
 import AuthorizaciaClass 1.0
 Item {
     height: 926
@@ -21,7 +22,7 @@ Item {
 
     Rectangle{
         anchors.fill: parent
-        color:Qt.rgba(125/255,254/255,177/255,1)
+        color:Qt.rgba(248/255,232/255,233/255,1)
         Image {
             id:img
             x:77

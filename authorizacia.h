@@ -16,7 +16,6 @@ public:
     explicit Authorizacia(QObject *parent = nullptr);
 
     Q_INVOKABLE void getDataAutorizacia(QString login, QString password);
-    Q_INVOKABLE void getDataAboutUser(QString login ,QString password);
 
     QStandardItemModel*getMyModel(){
         return myModel;

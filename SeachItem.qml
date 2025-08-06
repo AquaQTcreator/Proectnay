@@ -13,13 +13,13 @@ Item {
         anchors.centerIn: parent
         width: parent.width
         height: 301
-        color: Qt.rgba(189/255,114/255,216/255,1)
+        color: Qt.rgba(248/255,232/255,233/255,1)
         Label {
             x:15
             y:43
             font.pixelSize: 30
             font.bold: true
-            color: "white"
+            color: Qt.rgba(46/255,46/255,46/255,1)
             text: "Искать по..."
         }
         CheckBox {
@@ -33,7 +33,7 @@ Item {
             anchors.leftMargin: 6
             font.pixelSize: 30
             font.bold: true
-            color: "white"
+            color: Qt.rgba(46/255,46/255,46/255,1)
             text: "Названию"
         }
         CheckBox {
@@ -47,7 +47,7 @@ Item {
             anchors.leftMargin: 6
             font.pixelSize: 30
             font.bold: true
-            color: "white"
+            color: Qt.rgba(46/255,46/255,46/255,1)
             text: "Ингридиенту"
         }
         TextField {
@@ -57,18 +57,25 @@ Item {
             width: 301
             height: 48
             background: Rectangle {
+                radius: 20
                 anchors.fill: parent
-                color: "white"
-                border.color: "black"
+                color: Qt.rgba(148/255,201/255,169/255,1)
+                border.color: "white"
                 border.width: 2
             }
         }
-        Button {
+        RoundButton {
             anchors.top: textFieldSeach.top
             anchors.left: textFieldSeach.right
             anchors.leftMargin: 25
             width: 70
             height: 48
+            background: Rectangle {
+                anchors.fill: parent
+                radius: 20
+                color: Qt.rgba(201/255,55/255,86/255,1);
+            }
+
             onClicked: {
                 console.log(checkName.checked,checkIngridient.checked)
                 if(checkName.checked === checkIngridient.checked) {

@@ -17,7 +17,7 @@ Item {
         id:navigatePanel
         width: 428
         height: 90
-        color: "black"
+        color: Qt.rgba(26/255,26/255,26/255,1)
 
         Image {
             x:16

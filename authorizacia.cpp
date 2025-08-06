@@ -46,7 +46,4 @@ void Authorizacia::getDataAutorizacia(QString login, QString password)
     //        }
 }
 
-void Authorizacia::getDataAboutUser(QString login, QString password)
-{
 
-}

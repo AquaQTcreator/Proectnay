@@ -22,5 +22,13 @@
         <file>NavigatePanel.qml</file>
         <file>assets/image/user_black.png</file>
         <file>SeachItem.qml</file>
+        <file>MySidePanelItem.qml</file>
+        <file>assets/image/Categories/Гарниры.png</file>
+        <file>assets/image/Categories/Десерты.png</file>
+        <file>assets/image/Categories/Завтраки.png</file>
+        <file>assets/image/Categories/Напитки@2x.png</file>
+        <file>assets/image/Categories/Салаты.png</file>
+        <file>assets/image/Categories/Супы.png</file>
+        <file>assets/image/Categories/Фастфуд.png</file>
     </qresource>
 </RCC>

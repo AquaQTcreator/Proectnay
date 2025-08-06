@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQml 2.12
 import QtQuick.Window 2.12
 import QtGraphicalEffects 1.0
+
 Item {
     height: mainWindow.height
     width: mainWindow.width
@@ -11,12 +12,24 @@ Item {
     property string sendLastName: ""
     property string sendLogin: ""
     property string sendPassword: ""
+
+
     signal sendPicture(string picture)
     onSendPicture: pageLoader.item.img.source = picture
+    function startAnimation(newTarget) {
+        myAnimationStart.target = newTarget
+        myAnimationStart.start()
+    }
+    function closeAnimation(newTarget,toValue) {
+        myAnimationClose.target = newTarget
+        myAnimationClose.to = -toValue
+        myAnimationClose.start()
+    }
+
     Rectangle {
         id:mainRect
         anchors.fill: parent
-        color: Qt.rgba(189/255,114/255,216/255,1)
+        color: Qt.rgba(248/255,232/255,233/255,1)
         Button {
             id:but
             x:0
@@ -30,7 +43,8 @@ Item {
             enabled: false
         }
 
-        Rectangle {
+
+        Rectangle {       ///////CustomToll
             width: parent.width + 4
             height: 66
             border.color: "white"
@@ -39,22 +53,30 @@ Item {
             anchors.topMargin: -2
             anchors.left: parent.left
             anchors.leftMargin: -2
-            color: "black"
+            color: Qt.rgba(26/255,26/255,26/255,1)
             Image {
                 id: categoriiButton
                 x:26
                 y:7
                 source: "qrc:/assets/image/Hamburger_LG.png"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        mainRect.enabled = false
+                        fonShowAnimation.start()
+                        startAnimation(sidePanelItem)
+                    }
+                }
             }
         }
 
-        Image {
+        Label {
             id: labelMain
             x:8
             y:72
-            width: 232
-            height: 51
-            source: "qrc:/assets/image/labelMain.png"
+            text: "Главная"
+            font.pixelSize: 30
+            color: Qt.rgba(46/255,46/255,46/255,1)
         }
 
         ListView { ////////////////////INSRTUMENTI
@@ -80,13 +102,15 @@ Item {
             }
         }
 
-        Image {
+        Label {
             x:9
             y:242
             width: 230
             height: 64
             id: labelWhatNeed
-            source: "qrc:/assets/image/labelWhatNeed.png"
+            text: "Что хотите"
+            font.pixelSize: 30
+            color: Qt.rgba(46/255,46/255,46/255,1)
         }
 
         ListView {     ///////////ZAVTRAKI
@@ -108,73 +132,84 @@ Item {
             }
         }
 
-        Image {
+        Label {
             x:9
             y:428
             width: 220
             height: 64
             id: labelRecepie
-            source: "qrc:/assets/image/labelRecepie.png"
+            text: "Рецепты"
+            font.pixelSize: 30
+            color: Qt.rgba(46/255,46/255,46/255,1)
         }
 
         GridView { //////////////////VODEL
             id:mainListView
             anchors.left: parent.left
-            anchors.leftMargin: 40
+            anchors.leftMargin: 18
             y:490
             width: 428
             height: 345
-            cellWidth: 180;
-            cellHeight: 160
+            cellWidth: 174+30;
+            cellHeight: 143+30
 
             model: myModel
             clip: true
 
-            delegate: Rectangle {
-                height: 150
-                width: 140
-                color:"black"
-                radius: 8
-                clip: true
+            delegate: Item {
+                id:delegateItem
+                height: 143
+                width:174
+                DropShadow {
+                    anchors.fill: delegate
+                    source: delegate      // Источник тени (наш Rectangle)
+                    horizontalOffset: 3      // Смещение по X
+                    verticalOffset: 3       // Смещение по Y
+                    radius: 10              // Размытие тени
+                    samples: 17             // Качество (чем больше, тем плавнее)
+                    color: "#80000000"      // Цвет тени (черный с прозрачностью 50%)
+                }
                 Rectangle {
-                    id:imgdel
-                    anchors.top: parent.top
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.margins: 2
-                    height: 130
-                    radius:6.5
+                    id:delegate
+                    height: 143
+                    width: 174
+                    color:Qt.rgba(255/255,211/255,181/255,1)
                     clip: true
-                    color: "black"
-                    Image {
-                        id:delegateImage
-                        anchors.fill: imgdel
-                        source: imageRole
-                        fillMode: Image.PreserveAspectCrop
-                        visible: false
+                    Rectangle {
+                        id:imgdel
+                        anchors.top: parent.top
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.margins: 2
+                        height: 112
+                        radius:6.5
+                        clip: true
+                        border.color:Qt.rgba(255/255,211/255,181/255,1)
+                        Image {
+                            id:delegateImage
+                            anchors.fill: imgdel
+                            source: imageRole
+                            fillMode: Image.PreserveAspectCrop
+                            visible: true
+                        }
                     }
-                }
-                OpacityMask {
-                    anchors.fill: imgdel
-                    source: delegateImage
-                    maskSource: imgdel
-                }
-                Rectangle {
-                    anchors.top: imgdel.bottom
-                    anchors.topMargin: -10
-                    height: 28
-                    width: parent.width
-                    color: "white"
-                    border.color: "black"
-                    border.width: 2
-                    Text {
-                        anchors.centerIn: parent
-                        id:textItem
-                        text: name
-                        font.bold: true
+                    Rectangle {
+                        anchors.top: imgdel.bottom
+                        height: 31
                         width: parent.width
-                        elide: Text.ElideRight
-                        font.pointSize: 6
+                        color: Qt.rgba(201/255,55/255,86/255,1);
+                        border.color: Qt.rgba(255/255,211/255,181/255,1)
+                        border.width: 1
+                        Text {
+                            anchors.centerIn: parent
+                            id:textItem
+                            text: name
+                            font.bold: true
+                            width: parent.width
+                            elide: Text.ElideRight
+                            font.pointSize: 6
+                            color: "white"
+                        }
                     }
                 }
             }
@@ -183,14 +218,16 @@ Item {
             anchors.bottom: parent.bottom
             id:myBottomPanel
             onShowProfil: {
-                mainRect.enabled = false
+
                 ////////
                 pageLoader.source = "Profil.qml"
+                startAnimation(pageLoader)
+                mainRect.enabled = false
                 pageLoader.item.nameQml = sendName
                 pageLoader.item.lastNameQml = sendLastName
                 pageLoader.item.loginQml = sendLogin
                 pageLoader.item.passwordQml = sendPassword
-                myAnimationStart.start()
+
             }
             onSeachName: {
                 seach.visible = true
@@ -201,15 +238,37 @@ Item {
 
         NumberAnimation { //showAnimation
             id:myAnimationStart
-            targets: [pageLoader]
+            targets: test
             properties: "x"
             to: 0
             duration: 200
         }
 
+        NumberAnimation {//CloseFonAnimationSide
+            id:fonShowAnimation
+            target: offSidepanelFon
+            property: "opacity"
+            to:0.5
+            duration: 200
+            easing.type: Easing.InOutQuad
+            onStarted: offSidepanelFon.visible = true
+        }
+        NumberAnimation {//CloseFonAnimationSide
+            id:fonSloseAnimation
+            target: offSidepanelFon
+            property: "opacity"
+            to:0
+            duration: 200
+            easing.type: Easing.InOutQuad
+            onStopped: {
+                offSidepanelFon.visible = false
+                mainRect.enabled = true
+            }
+        }
+
         NumberAnimation { //closeAnimation
             id:myAnimationClose
-            target: pageLoader
+            target: test
             property: "x"
             to:-428
             duration: 200
@@ -246,6 +305,38 @@ Item {
             mainRect.enabled = true
         }
     }
+    Rectangle {    ///////////////FON
+        id:offSidepanelFon
+        anchors.fill: parent
+        color: "black"
+        opacity: 0
+        visible: false
+        MouseArea {
+            height: parent.height
+            width:parent.width - sidePanelItem.width
+            x:sidePanelItem.width
+            y:0
+            onClicked: {
+                fonSloseAnimation.start()
+                closeAnimation(sidePanelItem,sidePanelItem.width)
+            }
+        }
+    }
+    MySidePanelItem {
+        id: sidePanelItem
+        x:-269
+        y:0
+        height: parent.height
+        width: 269
+    }
+
+    Rectangle {
+        id:test
+        enabled: false
+        visible: false
+        anchors.fill: parent
+        color: "white"
+    }
 
     Loader {
         id:pageLoader
@@ -257,7 +348,7 @@ Item {
     Connections {
         target: pageLoader.item
         onCloseThisItem: {
-            myAnimationClose.start()
+            closeAnimation(pageLoader,428)
         }
         onOpenFileProvider: {
             if(!fileDialog.visible) {

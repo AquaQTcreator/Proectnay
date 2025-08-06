@@ -5,7 +5,7 @@ Item {
     width: mainWindow.width
     Rectangle {
         anchors.fill: parent
-        color: Qt.rgba(214/255,94/255,122/255,1)
+        color: Qt.rgba(248/255,232/255,233/255,1)
         Rectangle {
             anchors.centerIn: parent
             color: "white"
@@ -41,7 +41,7 @@ Item {
             width: 308
             background: Rectangle {
                 anchors.fill: parent
-                color: Qt.rgba(166/255,166/255,166/255,1)
+                color: Qt.rgba(148/255,201/255,169/255,1)
                 radius: 20
             }
         }
@@ -62,7 +62,7 @@ Item {
             width: 308
             background: Rectangle {
                 anchors.fill: parent
-                color: Qt.rgba(166/255,166/255,166/255,1)
+                color: Qt.rgba(148/255,201/255,169/255,1)
                 radius: 20
             }
         }
@@ -83,7 +83,7 @@ Item {
             width: 308
             background: Rectangle {
                 anchors.fill: parent
-                color: Qt.rgba(166/255,166/255,166/255,1)
+                color: Qt.rgba(148/255,201/255,169/255,1)
                 radius: 20
             }
         }
@@ -104,7 +104,7 @@ Item {
             width: 308
             background: Rectangle {
                 anchors.fill: parent
-                color: Qt.rgba(166/255,166/255,166/255,1)
+                color: Qt.rgba(148/255,201/255,169/255,1)
                 radius: 20
             }
         }
@@ -125,7 +125,7 @@ Item {
             width: 308
             background: Rectangle {
                 anchors.fill: parent
-                color: Qt.rgba(166/255,166/255,166/255,1)
+                color: Qt.rgba(148/255,201/255,169/255,1)
                 radius: 20
             }
         }
@@ -136,11 +136,21 @@ Item {
             y:653
             height: 32
             width: 312
-            text: "Зарегестрироваться"
             onClicked: if (textFieldPassword.text == textFieldreturnPassword.text) {
                            signUp.getDataForSignUp(textFieldName.text,textFieldLastName.text,textFieldLogin.text,textFieldPassword.text)
                        }
                        else statusQml = "Пароли не совпадают"
+            background: Rectangle {
+                anchors.fill: parent
+                color: Qt.rgba(201/255,55/255,86/255,1);
+                radius: 20
+                Text {
+                    anchors.centerIn: parent
+                    id: txtButInput
+                    text: qsTr("Зарегестрироваться")
+                    color: "white"
+                }
+            }
         }
         Text {
             id:textStatus
@@ -159,7 +169,7 @@ Item {
             id:labelSignUp
             font.pixelSize: 17
             text: "Уже зарегестрированы?"
-            color: "blue"
+            color: Qt.rgba(201/255,55/255,86/255,1);
             x:61
             y:694
             MouseArea {

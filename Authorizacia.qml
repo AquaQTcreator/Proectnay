@@ -8,7 +8,7 @@ Item {
     Rectangle {
         id:fon
         anchors.fill: parent
-        color: Qt.rgba(255/255,110/255,110/255,1)
+        color: Qt.rgba(248/255,232/255,233/255,1)
         Rectangle {
             x:mainWindow.width/15.8
             y:mainWindow.height/3.63
@@ -49,7 +49,8 @@ Item {
             width: mainWindow.width/1.37
             background: Rectangle {
                 anchors.fill: parent
-                color: Qt.rgba(166/255,166/255,166/255,1)
+                color: Qt.rgba(148/255,201/255,169/255,1)
+                radius: 10
             }
         }
         Label {
@@ -67,7 +68,8 @@ Item {
             width:  mainWindow.width/1.37
             background: Rectangle {
                 anchors.fill: parent
-                color: Qt.rgba(166/255,166/255,166/255,1)
+                color: Qt.rgba(148/255,201/255,169/255,1)
+                radius: 10
             }
         }
         RoundButton {//Вход
@@ -76,13 +78,20 @@ Item {
             height: mainWindow.height/21.04
             width:  mainWindow.width/1.37
             id:buttonInput
-            text: "Вход"
+            radius: 10
             onClicked: {
                 authorizaciaClass.getDataAutorizacia(textFieldLogin.text,textFieldPassword.text);
             }
             background: Rectangle {
                 anchors.fill: parent
-                color: "lightBlue"
+                color: Qt.rgba(201/255,55/255,86/255,1);
+                radius: 10
+                Text {
+                    anchors.centerIn: parent
+                    id: txtButInput
+                    text: qsTr("Вход")
+                    color: "white"
+                }
             }
         }
         Label {
@@ -99,7 +108,7 @@ Item {
             anchors.leftMargin: mainWindow.width/42.8
             text:"Зарегестрироваться"
             font.pixelSize: mainWindow.width/90.2 + mainWindow.height/90.2
-            color: "blue"
+            color: Qt.rgba(201/255,55/255,86/255,1);
             MouseArea {
                 id:mouseAreaSignUp
                 anchors.fill: parent
