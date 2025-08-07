@@ -30,18 +30,18 @@ Item {
         id:mainRect
         anchors.fill: parent
         color: Qt.rgba(248/255,232/255,233/255,1)
-        Button {
-            id:but
-            x:0
-            y:50
-            onClicked: myModel.setImageToDB()
-            enabled: false
-        }
-        Button {
-            anchors.left: but.right
-            onClicked: myModel.loadFromDatabase()
-            enabled: false
-        }
+//        Button {
+//            id:but
+//            x:0
+//            y:50
+//            onClicked: myModel.setImageToDB()
+//            enabled: false
+//        }
+//        Button {
+//            anchors.left: but.right
+//            onClicked: myModel.loadFromDatabase()
+//            enabled: false
+//        }
 
 
         Rectangle {       ///////CustomToll
@@ -56,7 +56,7 @@ Item {
             color: Qt.rgba(26/255,26/255,26/255,1)
             Image {
                 id: categoriiButton
-                x:26
+                x:8
                 y:7
                 source: "qrc:/assets/image/Hamburger_LG.png"
                 MouseArea {
@@ -65,6 +65,17 @@ Item {
                         mainRect.enabled = false
                         fonShowAnimation.start()
                         startAnimation(sidePanelItem)
+                    }
+                }
+            }
+            Image {
+                id: adminButton
+                anchors.right: parent.right
+                source: "qrc:/assets/image/Hamburger_LG.png"
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                            stackPage.push(myTimer)
                     }
                 }
             }

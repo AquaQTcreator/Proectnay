@@ -30,5 +30,7 @@
         <file>assets/image/Categories/Салаты.png</file>
         <file>assets/image/Categories/Супы.png</file>
         <file>assets/image/Categories/Фастфуд.png</file>
+        <file>TimerPage.qml</file>
+        <file>assets/image/ButBack.png</file>
     </qresource>
 </RCC>

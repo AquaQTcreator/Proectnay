@@ -95,4 +95,9 @@ ApplicationWindow {
      //       profil.visible = true
         }
 }
+    TimerPage {
+        id:myTimer
+        visible: false
+
+    }
 }
