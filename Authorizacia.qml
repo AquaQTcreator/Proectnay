@@ -80,6 +80,7 @@ Item {
             id:buttonInput
             radius: 10
             onClicked: {
+               // myModel.setImageToDB()
                 authorizaciaClass.getDataAutorizacia(textFieldLogin.text,textFieldPassword.text);
             }
             background: Rectangle {

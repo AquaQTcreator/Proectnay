@@ -9,6 +9,7 @@ CONFIG += c++11
 
 SOURCES += \
         authorizacia.cpp \
+        ingredientlistmodel.cpp \
         main.cpp \
         mymodel.cpp \
         profiluser.cpp \
@@ -29,6 +30,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     authorizacia.h \
+    ingredientlistmodel.h \
     mymodel.h \
     profiluser.h \
     signup.h

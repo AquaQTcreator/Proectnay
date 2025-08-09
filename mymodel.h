@@ -6,7 +6,7 @@
 #include <QStandardItemModel>
 #include <authorizacia.h>
 
-#define TABLE                   "ImageTable"       // Название таблицы
+#define TABLE                   "recepies"       // Название таблицы
 #define TABLE_NAME              "Name"              // Вторая колонка
 #define TABLE_PIC               "Img"
 
@@ -30,7 +30,7 @@ public:
     Q_INVOKABLE void loadFromDatabase();
     Q_INVOKABLE void seachName(QString title,QString parametr);
     bool insertDataToDB(const QVariantList &data);
-    bool insetIntoTable(const QString &name, const QByteArray &img);
+        bool insetIntoTable(const QString &name,const QString &lastName, const QByteArray &img);
 
 private:
     struct Item {

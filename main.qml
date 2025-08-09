@@ -98,6 +98,9 @@ ApplicationWindow {
     TimerPage {
         id:myTimer
         visible: false
-
+    }
+    PrewieIngridients {
+        id:preview
+        visible: false
     }
 }

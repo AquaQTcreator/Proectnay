@@ -23,10 +23,10 @@ void SignUp::getDataForSignUp(QString name, QString lastname, QString login, QSt
         }
         qDebug()<<numbers<<smallSymbol<<bigSmall;
         if (numbers >= 3 && smallSymbol >= 3 && bigSmall >= 3 && password.length() < 12 && otherSymbol == 0) { //Проверка количества символов и цифр
-            query.prepare("SELECT EXISTS (SELECT 1 FROM users WHERE email = '"+dataToHash(login)+"' AND password = '"+dataToHash(password)+"')");
+            query.prepare("SELECT EXISTS (SELECT 1 FROM users WHERE login = '"+dataToHash(login)+"' AND password = '"+dataToHash(password)+"')");
             if (query.exec() && query.next()) {
                 if (!query.value(0).toBool()) {
-                    query.prepare("INSERT INTO users (first_name,last_name,email,password) VALUES ('"+name+"',"
+                    query.prepare("INSERT INTO users (first_name,last_name,login,password) VALUES ('"+name+"',"
                      " '"+lastname+"','"+dataToHash(login)+"','"+dataToHash(password)+"');");
                     if (!query.exec()) {
                         status = "Ошибка регистрации";

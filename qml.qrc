@@ -32,5 +32,6 @@
         <file>assets/image/Categories/Фастфуд.png</file>
         <file>TimerPage.qml</file>
         <file>assets/image/ButBack.png</file>
+        <file>PrewieIngridients.qml</file>
     </qresource>
 </RCC>

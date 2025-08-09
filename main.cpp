@@ -5,6 +5,7 @@
 #include <QQmlContext>
 #include "mymodel.h"
 #include "profiluser.h"
+#include "ingredientlistmodel.h"
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -22,6 +23,8 @@ int main(int argc, char *argv[])
     }, Qt::QueuedConnection);
     profilUser myProfil;
     engine.rootContext()->setContextProperty("profilUser",&myProfil);
+    IngredientListModel myIngredientsModel;
+    engine.rootContext()->setContextProperty("myListModel",&myIngredientsModel);
     qmlRegisterType<Authorizacia>("AuthorizaciaClass",1,0,"AuthorizaciaClass");
     qmlRegisterType<SignUp>("SignUp",1,0,"SignUp");
     qmlRegisterType<MyModel>("MyModel",1,0,"MyModel");

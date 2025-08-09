@@ -33,9 +33,9 @@ bool profilUser::insertDataToDB(const QVariantList &data)
          * */
 
         QSqlQuery query;
-        query.prepare("UPDATE profilTable SET photo = :Photo WHERE id = :id");
+        query.prepare("UPDATE users SET photo = :Photo WHERE id = :id");
         query.bindValue(":Photo", data[2].toByteArray());
-        query.bindValue(":id", 7);
+        query.bindValue(":id", 1);
 
         if (!query.exec()) {
             qDebug() << "Ошибка обновления фото:" << query.lastError().text();
@@ -57,8 +57,8 @@ bool profilUser::insetIntoTable(const QString &name,const QString &lastName, con
 QString profilUser::getUserPhoto(int id)
 {
     QSqlQuery query;
-    query.prepare("SELECT photo FROM profilTable WHERE id = :id");
-    query.bindValue(":id", id);
+    query.prepare("SELECT photo FROM users WHERE id = :id");
+    query.bindValue(":id", 1);
 
     if (!query.exec()) {
         qDebug() << "Ошибка запроса:" << query.lastError().text();

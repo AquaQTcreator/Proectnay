@@ -30,13 +30,13 @@ Item {
         id:mainRect
         anchors.fill: parent
         color: Qt.rgba(248/255,232/255,233/255,1)
-//        Button {
-//            id:but
-//            x:0
-//            y:50
-//            onClicked: myModel.setImageToDB()
-//            enabled: false
-//        }
+        Button {
+            id:but
+            x:0
+            y:50
+            onClicked: myModel.setImageToDB()
+            enabled: true
+        }
 //        Button {
 //            anchors.left: but.right
 //            onClicked: myModel.loadFromDatabase()
@@ -196,6 +196,14 @@ Item {
                         radius:6.5
                         clip: true
                         border.color:Qt.rgba(255/255,211/255,181/255,1)
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                myListModel.loadDataFromDB(textItem.text);
+                                stackPage.push(preview)
+                            }
+                        }
+
                         Image {
                             id:delegateImage
                             anchors.fill: imgdel
