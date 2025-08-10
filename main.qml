@@ -12,6 +12,15 @@ ApplicationWindow {
     height: 926
     visible: true
     property string statusQml: ""
+
+    Connections {
+        target: myListModel
+        onTextTileRecepie: {
+            previewRecepie.titleText = titleTextC
+            stackPage.push(previewRecepie)
+        }
+    }
+
     StackView {
         id:stackPage
         initialItem: authorizaciaQml
@@ -101,6 +110,10 @@ ApplicationWindow {
     }
     PrewieIngridients {
         id:preview
+        visible: false
+    }
+    PreviewRecepie {
+        id:previewRecepie
         visible: false
     }
 }

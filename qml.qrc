@@ -33,5 +33,6 @@
         <file>TimerPage.qml</file>
         <file>assets/image/ButBack.png</file>
         <file>PrewieIngridients.qml</file>
+        <file>PreviewRecepie.qml</file>
     </qresource>
 </RCC>

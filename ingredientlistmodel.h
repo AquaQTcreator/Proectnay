@@ -26,9 +26,11 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole ) const override;
     QHash<int , QByteArray> roleNames() const override;
     Q_INVOKABLE void loadDataFromDB(QString titleRecepie);
-
+    Q_INVOKABLE void loadTitleText(QString titleRecepie);
 private:
     QVector<IngredientItem> m_items;
+signals:
+    void textTileRecepie(QString titleTextC);
 };
 
 #endif // INGREDIENTLISTMODEL_H

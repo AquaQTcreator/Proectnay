@@ -199,8 +199,10 @@ Item {
                         MouseArea {
                             anchors.fill: parent
                             onClicked: {
+                                previewRecepie.titleImage = delegateImage.source
                                 myListModel.loadDataFromDB(textItem.text);
-                                stackPage.push(preview)
+                                myListModel.loadTitleText(textItem.text);
+
                             }
                         }
 

@@ -73,4 +73,27 @@ void IngredientListModel::loadDataFromDB(QString titleRecepie)
                 endResetModel();
 }
 
+void IngredientListModel::loadTitleText(QString titleRecepie)
+{
+    QSqlQuery queryId;
+    QString titleTextRecepie;
+    QString idRecepie;
+    queryId.prepare("SELECT id FROM recepies WHERE name_recepie = '"+titleRecepie+"'");
+    queryId.exec();
+    queryId.next();
+    idRecepie = queryId.value(0).toString();
+    QSqlQuery query;
+    query.prepare("SELECT description FROM recepies WHERE author_id = "+idRecepie+"");
+                if(!query.exec()) {
+                    qDebug() << "Fail" <<query.lastError();
+                    return;
+                }
+                else {
+                    query.next();
+                    titleTextRecepie = query.value(0).toString();
+                    emit textTileRecepie(titleTextRecepie);
+                }
+
+}
+
 
