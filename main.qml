@@ -12,7 +12,9 @@ ApplicationWindow {
     height: 926
     visible: true
     property string statusQml: ""
-
+    property string idUser: "1"
+    property string myTitle: ""
+    property string description: ""
     Connections {
         target: myListModel
         onTextTileRecepie: {
@@ -104,6 +106,21 @@ ApplicationWindow {
      //       profil.visible = true
         }
 }
+    FileDialog {
+        id:fileDialog1
+        folder:"file:///D:/Pictures/"
+      //  nameFilters: ["PNG Files (*.png)"]
+        onAccepted: {
+            console.log(myTitle)
+            console.log(description)
+            console.log(idUser)
+            myModel.setImageToDB(fileDialog1.file,idUser,myTitle,description)
+            console.log(fileDialog1.file)
+            fileDialog1.close()
+            //mainMenuQml.sendPicture(fileDialog.file)
+     //       profil.visible = true
+        }
+}
     TimerPage {
         id:myTimer
         visible: false
@@ -114,6 +131,10 @@ ApplicationWindow {
     }
     PreviewRecepie {
         id:previewRecepie
+        visible: false
+    }
+    AddPagePreview {
+        id:addPreview
         visible: false
     }
 }

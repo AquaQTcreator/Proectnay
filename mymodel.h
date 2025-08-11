@@ -26,11 +26,14 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE void setImageToDB();
+    Q_INVOKABLE void setImageToDB(const QString &urlPath,QString id,QString title,QString description);
     Q_INVOKABLE void loadFromDatabase();
     Q_INVOKABLE void seachName(QString title,QString parametr);
+    Q_INVOKABLE void refreshModel();
+    QByteArray getDefaultImage() const;
+    QByteArray getCompressedImage(const QByteArray& original) const;
     bool insertDataToDB(const QVariantList &data);
-        bool insetIntoTable(const QString &name,const QString &lastName, const QByteArray &img);
+    bool insetIntoTable(const QString &name,const QString &lastName,const QString &id, const QByteArray &img);
 
 private:
     struct Item {

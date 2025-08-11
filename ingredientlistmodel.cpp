@@ -82,8 +82,9 @@ void IngredientListModel::loadTitleText(QString titleRecepie)
     queryId.exec();
     queryId.next();
     idRecepie = queryId.value(0).toString();
+    qDebug()<<"id:"<<idRecepie;
     QSqlQuery query;
-    query.prepare("SELECT description FROM recepies WHERE author_id = "+idRecepie+"");
+    query.prepare("SELECT description FROM recepies WHERE id = "+idRecepie+"");
                 if(!query.exec()) {
                     qDebug() << "Fail" <<query.lastError();
                     return;

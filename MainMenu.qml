@@ -15,6 +15,13 @@ Item {
 
 
     signal sendPicture(string picture)
+    signal openAdd(int indexDelegate)
+    onOpenAdd: {
+        if(indexDelegate === 0) {
+            stackPage.push(addPreview)
+        }
+    }
+
     onSendPicture: pageLoader.item.img.source = picture
     function startAnimation(newTarget) {
         myAnimationStart.target = newTarget
@@ -30,18 +37,18 @@ Item {
         id:mainRect
         anchors.fill: parent
         color: Qt.rgba(248/255,232/255,233/255,1)
-        Button {
-            id:but
-            x:0
-            y:50
-            onClicked: myModel.setImageToDB()
-            enabled: true
-        }
-//        Button {
-//            anchors.left: but.right
-//            onClicked: myModel.loadFromDatabase()
-//            enabled: false
-//        }
+        //        Button {
+        //            id:but
+        //            x:0
+        //            y:50
+        //            onClicked: myModel.setImageToDB()
+        //            enabled: true
+        //        }
+        //        Button {
+        //            anchors.left: but.right
+        //            onClicked: myModel.loadFromDatabase()
+        //            enabled: false
+        //        }
 
 
         Rectangle {       ///////CustomToll
@@ -75,7 +82,7 @@ Item {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                            stackPage.push(myTimer)
+                        stackPage.push(myTimer)
                     }
                 }
             }
@@ -108,7 +115,9 @@ Item {
                 height: 90
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: console.log(index)
+                    onClicked: {
+                        openAdd(index)
+                    }
                 }
             }
         }
@@ -202,7 +211,6 @@ Item {
                                 previewRecepie.titleImage = delegateImage.source
                                 myListModel.loadDataFromDB(textItem.text);
                                 myListModel.loadTitleText(textItem.text);
-
                             }
                         }
 
@@ -228,6 +236,7 @@ Item {
                             font.bold: true
                             width: parent.width
                             elide: Text.ElideRight
+                            horizontalAlignment: Text.AlignHCenter
                             font.pointSize: 6
                             color: "white"
                         }

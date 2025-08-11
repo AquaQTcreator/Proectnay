@@ -34,5 +34,6 @@
         <file>assets/image/ButBack.png</file>
         <file>PrewieIngridients.qml</file>
         <file>PreviewRecepie.qml</file>
+        <file>AddPagePreview.qml</file>
     </qresource>
 </RCC>
