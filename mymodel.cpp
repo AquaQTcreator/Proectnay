@@ -127,98 +127,64 @@ QVariant MyModel::data(const QModelIndex &index, int role) const
 }
 void MyModel::loadFromDatabase() // Заполняю структуру item для модели
 {
-    beginResetModel();
-    m_items.clear();
+     refreshData();
 
-    QSqlQuery query;
-    QString sql = "SELECT name_recepie, photo_recepie FROM recepies";
-    qDebug() << "Executing SQL:" << sql;
-
-    if (!query.exec(sql)) {
-        qCritical() << "Error loading data:" << query.lastError().text();
-        endResetModel();  // Важно вызвать даже при ошибке
-        return;
-    }
-
-    while (query.next()) {
-        Item item;
-        item.name = query.value(0).toString();
-
-        // Обработка изображения
-        QVariant imageData = query.value(1);
-
-        if (imageData.isNull() || imageData.toByteArray().isEmpty()) {
-            qDebug() << "Фото отсутствует (NULL), загружаем замену";
-
-            // 1. Используем ресурсы Qt вместо абсолютного пути
-            QString defaultImagePath = ":/assets/image/dinner.png"; // Поместите изображение в qrc
-
-            // 2. Безопасная загрузка
-            QFile file(defaultImagePath);
-            if (file.open(QIODevice::ReadOnly)) {
-                item.image = file.readAll();
-                file.close();
-            } else {
-                qWarning() << "Не удалось загрузить изображение по умолчанию";
-                item.image = QByteArray(); // Пустой массив
-            }
-        } else {
-            // Проверка валидности изображения из БД
-            QByteArray imgData = imageData.toByteArray();
-            QImage testImage;
-
-            if (!testImage.loadFromData(imgData)) {
-                qWarning() << "Некорректные данные изображения в БД";
-                item.image = QByteArray();
-            } else {
-                item.image = imgData;
-                qDebug() << "Изображение загружено, размер:" << imgData.size() << "байт";
-            }
-        }
-
-        m_items.append(item);
-    }
-
-    endResetModel();
-    emit myModelCreate();
-
-    // Дополнительная проверка
-    qDebug() << "Модель обновлена, элементов:" << m_items.size();
 //    beginResetModel();
 //    m_items.clear();
-
+//    m_offset = 0;
 //    QSqlQuery query;
-//    QString sql = "SELECT name_recepie, photo_recepie FROM recepies";
+//    QString sql = "SELECT name_recepie, photo_recepie FROM recepies LIMIT 10";
 //    qDebug() << "Executing SQL:" << sql;
 
 //    if (!query.exec(sql)) {
-//        qDebug() << "Error loading data:" << query.lastError().text();
-//    }else {
-//        while (query.next()) {
-//            Item item;
-//            item.name = query.value(0).toString();
-
-//            QVariant imageData = query.value(1); // Получаем данные изображения
-
-//            if (imageData.isNull()) {   //Проверка на пустоту и если пустое то загружаю мамикона
-//                qDebug() << "Фото отсутствует (NULL)";
-//                QString source = "D:/рабочий стол/Projects/Личное/Кисляй/Снимок экрана 2025-05-11 131944.png";
-//                QFile file(source);
-//                if (!file.open(QIODevice::ReadOnly)) {
-//                    qDebug() << "Ошибка: не удалось открыть файл" << source; // Возвращаем пустой QByteArray
-//                }
-//                QByteArray imageData = file.readAll();
-//                item.image = imageData;
-//                file.close();// хз
-//            } else {
-//            item.image = query.value(1).toByteArray();
-//            qDebug()<< "Изображение не пустое";
-//            }
-//            m_items.append(item);
-//        }
+//        qCritical() << "Error loading data:" << query.lastError().text();
+//        endResetModel();  // Важно вызвать даже при ошибке
+//        return;
 //    }
+
+//    while (query.next()) {
+//        Item item;
+//        item.name = query.value(0).toString();
+
+//        // Обработка изображения
+//        QVariant imageData = query.value(1);
+
+//        if (imageData.isNull() || imageData.toByteArray().isEmpty()) {
+//            qDebug() << "Фото отсутствует (NULL), загружаем замену";
+
+//            // 1. Используем ресурсы Qt вместо абсолютного пути
+//            QString defaultImagePath = ":/assets/image/dinner.png"; // Поместите изображение в qrc
+
+//            // 2. Безопасная загрузка
+//            QFile file(defaultImagePath);
+//            if (file.open(QIODevice::ReadOnly)) {
+//                item.image = file.readAll();
+//                file.close();
+//            } else {
+//                qWarning() << "Не удалось загрузить изображение по умолчанию";
+//                item.image = QByteArray(); // Пустой массив
+//            }
+//        } else {
+//            // Проверка валидности изображения из БД
+//            QByteArray imgData = imageData.toByteArray();
+//            QImage testImage;
+
+//            if (!testImage.loadFromData(imgData)) {
+//                qWarning() << "Некорректные данные изображения в БД";
+//                item.image = QByteArray();
+//            } else {
+//                item.image = imgData;
+//                qDebug() << "Изображение загружено, размер:" << imgData.size() << "байт";
+//            }
+//        }
+
+//        m_items.append(item);
+//        m_offset++;
+//    }
+
 //    endResetModel();
 //    emit myModelCreate();
+
 }
 
 void MyModel::seachName(QString title,QString parametr)
@@ -239,47 +205,142 @@ void MyModel::seachName(QString title,QString parametr)
 
 }
 
-void MyModel::refreshModel()
+void MyModel::calculateTotalPages()
 {
-    beginResetModel();
-        m_items.clear();
+    QSqlQuery countQuery;
+    if (!countQuery.exec("SELECT COUNT(*) FROM recepies")) {
+        qCritical() << "Error counting items:" << countQuery.lastError().text();
+        qCritical() << "Query:" << countQuery.lastQuery();
+        m_totalItems = 0;
+        m_totalPages = 0;
+        emit totalPagesChanged();
+        emit totalItemsChanged();
+        return;
+    }
 
-        // Используем курсор для последовательной загрузки
-        QSqlQuery query;
-        query.setForwardOnly(true); // Важно! Экономит память
-        query.prepare("SELECT id, name_recepie, photo_recepie FROM recepies");
+    if (countQuery.next()) {
+        m_totalItems = countQuery.value(0).toInt();
+        qDebug() << "Total items in database:" << m_totalItems;
 
-        if (!query.exec()) {
-            qCritical() << "Query failed:" << query.lastError().text();
-            endResetModel();
-            return;
+        if (m_totalItems == 0) {
+            m_totalPages = 0;
+        } else {
+            m_totalPages = (m_totalItems + ITEMS_PER_PAGE - 1) / ITEMS_PER_PAGE;
         }
 
-        // Загружаем данные порциями
-        int count = 0;
-        while (query.next() && count < 20) { // Лимит 100 записей
-            Item item;
-            item.id = query.value(0).toInt();
-            item.name = query.value(1).toString();
-
-            // Пропускаем NULL-изображения
-            if (!query.value(2).isNull()) {
-                QByteArray imgData = query.value(2).toByteArray();
-                if (imgData.size() < 2*1024*1024) { // Не более 4MB
-                    item.image = imgData;
-                }
-            }
-
-            m_items.append(item);
-            count++;
-
-            if (count % 10 == 0) {
-                QCoreApplication::processEvents();
-            }
-        }
-
-        endResetModel();
+        qDebug() << "Total pages calculated:" << m_totalPages;
+        emit totalPagesChanged();
+        emit totalItemsChanged();
+    }
 }
+bool MyModel::hasNextPage() const
+{
+    bool result = m_currentPage < m_totalPages - 1;
+    qDebug() << "hasNextPage - current:" << m_currentPage
+             << "total:" << m_totalPages
+             << "result:" << result;
+    return result;
+}
+void MyModel::loadPage(int page)
+{
+
+    QString connectionName = QString("temp_connection_%1").arg(QTime::currentTime().msec());
+    QSqlDatabase db = QSqlDatabase::addDatabase("QPSQL", connectionName);
+    db.setHostName("localhost");
+    db.setPort(5432);
+    db.setDatabaseName("datamy1");
+    db.setUserName("postgres");
+    db.setPassword("1234");
+
+    if (!db.open()) {
+        qCritical() << "Cannot open database";
+        QSqlDatabase::removeDatabase(connectionName);
+        return;
+    }
+
+    if (QThread::currentThread() != QCoreApplication::instance()->thread()) {
+        qWarning() << "loadMore called from wrong thread!";
+        QMetaObject::invokeMethod(this, "loadPage", Qt::QueuedConnection);
+        return;
+    }
+
+    beginResetModel();
+    m_items.clear();
+
+    QSqlQuery query;
+    QString sql = QString("SELECT name_recepie, photo_recepie FROM recepies LIMIT %1 OFFSET %2")
+                     .arg(ITEMS_PER_PAGE)
+                     .arg(page * ITEMS_PER_PAGE);
+
+    qDebug() << "Executing SQL:" << sql;
+
+    if (!query.exec(sql)) {
+        qCritical() << "Error loading data:" << query.lastError().text();
+        endResetModel();
+        return;
+    }
+
+    while (query.next()) {
+        Item item;
+        item.name = query.value(0).toString();
+
+        // Обработка изображения (ваш существующий код)
+        QVariant imageData = query.value(1);
+
+        if (imageData.isNull() || imageData.toByteArray().isEmpty()) {
+            qDebug() << "Фото отсутствует (NULL), загружаем замену";
+            QString defaultImagePath = ":/assets/image/dinner.png";
+
+            QFile file(defaultImagePath);
+            if (file.open(QIODevice::ReadOnly)) {
+                item.image = file.readAll();
+                file.close();
+            } else {
+                qWarning() << "Не удалось загрузить изображение по умолчанию";
+                item.image = QByteArray();
+            }
+        } else {
+            QByteArray imgData = imageData.toByteArray();
+            QImage testImage;
+
+            if (!testImage.loadFromData(imgData)) {
+                qWarning() << "Некорректные данные изображения в БД";
+                item.image = QByteArray();
+            } else {
+                item.image = imgData;
+                qDebug() << "Изображение загружено, размер:" << imgData.size() << "байт";
+            }
+        }
+
+        m_items.append(item);
+    }
+
+    m_currentPage = page;
+    endResetModel();
+    emit pageChanged();
+    emit myModelCreate();
+}
+
+void MyModel::loadNextPage()
+{
+        loadPage(m_currentPage + 1);
+
+}
+
+void MyModel::loadPreviousPage()
+{
+        loadPage(m_currentPage - 1);
+}
+
+void MyModel::refreshData()
+{
+    qDebug()<<"refreshData";
+    calculateTotalPages();
+    loadPage(0);
+}
+
+// Заменяем старую функцию loadFromDatabase()
+
 QByteArray MyModel::getDefaultImage() const
 {
     QFile file(":/assets/image/dinner.png");

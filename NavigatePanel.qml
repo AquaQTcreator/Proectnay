@@ -56,7 +56,8 @@ Item {
             source: "qrc:/assets/image/user_1.png"
             MouseArea {
                 anchors.fill: parent
-                onClicked: { root.showProfil()
+                onClicked: {
+                    root.showProfil()
                 }
             }
         }

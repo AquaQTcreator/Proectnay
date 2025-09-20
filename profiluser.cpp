@@ -6,6 +6,11 @@ profilUser::profilUser(QObject*parent):QObject(parent)
 }
 void profilUser::setImageToDB(const QString &urlPath)
 {
+    if(urlPath.isEmpty()) {
+        emit changedPhoto();
+        return;
+        qDebug()<<"EMPTY";
+    }
     QUrl fileUrl(urlPath);
     QString source = fileUrl.toLocalFile();
     QPixmap myPixmap(source);

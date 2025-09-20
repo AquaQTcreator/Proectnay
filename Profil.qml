@@ -17,6 +17,7 @@ Item {
         target: profilUser
         onChangedPhoto: {
             img.source = profilUser.getUserPhoto(7)
+            console.log("changed")
         }
     }
 

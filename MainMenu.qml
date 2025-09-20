@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQml 2.12
 import QtQuick.Window 2.12
@@ -173,7 +173,7 @@ Item {
             cellWidth: 174+30;
             cellHeight: 143+30
 
-            model: myModel
+            model: myMainModel
             clip: true
 
             delegate: Item {
@@ -220,6 +220,16 @@ Item {
                             source: imageRole
                             fillMode: Image.PreserveAspectCrop
                             visible: true
+                            asynchronous: true
+                            cache: true
+                            mipmap: true
+
+                            // Заглушка на время загрузки
+                            Rectangle {
+                                anchors.fill: parent
+                                color: "#e0e0e0"
+                                visible: parent.status !== Image.Ready
+                            }
                         }
                     }
                     Rectangle {
@@ -241,6 +251,27 @@ Item {
                             color: "white"
                         }
                     }
+                }
+            }
+            footer: Rectangle {
+                width: parent.width
+                height: 50
+                color: "white"
+                Button {
+                        anchors.left: parent.left
+                        width: parent.width/2
+                        height: 50
+                        text: "Назад"
+                        enabled: myMainModel.hasPreviousPage
+                        onClicked: myMainModel.loadPreviousPage()
+                    }
+                Button {
+                    anchors.right: parent.right
+                    width: parent.width/2
+                    height: 50
+                    text: "Вперед"
+                    enabled: myMainModel.hasNextPage
+                    onClicked: myMainModel.loadNextPage()
                 }
             }
         }

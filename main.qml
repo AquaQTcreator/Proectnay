@@ -5,7 +5,6 @@ import QtQuick.Controls 2.12
 import Qt.labs.platform 1.1
 import AuthorizaciaClass 1.0
 import SignUp 1.0
-import MyModel 1.0
 ApplicationWindow {
     id:mainWindow
     width: 428
@@ -65,7 +64,7 @@ ApplicationWindow {
         id:authorizaciaClass
         onMyLoginAndPassFinded: {
             console.log("Данные найдены");
-            myModel.loadFromDatabase()
+            myMainModel.loadFromDatabase()
             mainMenuQml.sendName = name;
             mainMenuQml.sendLastName = lastName;
             mainMenuQml.sendLogin = login;
@@ -90,8 +89,8 @@ ApplicationWindow {
             statusQml = status;
         }
     }
-    MyModel {
-        id:myModel
+    Connections {
+        target: myMainModel
         onMyModelCreate: stackPage.push(mainMenuQml)
     }
     FileDialog {
@@ -102,6 +101,7 @@ ApplicationWindow {
             profilUser.setImageToDB(fileDialog.file);
 //
             console.log(fileDialog.file)
+            fileDialog.close()
             //mainMenuQml.sendPicture(fileDialog.file)
      //       profil.visible = true
         }
@@ -114,9 +114,9 @@ ApplicationWindow {
             console.log(myTitle)
             console.log(description)
             console.log(idUser)
-            myModel.setImageToDB(fileDialog1.file,idUser,myTitle,description)
+            myMainModel.setImageToDB(fileDialog1.file,idUser,myTitle,description)
             console.log(fileDialog1.file)
-            fileDialog1.close()
+           fileDialog1.close()
             //mainMenuQml.sendPicture(fileDialog.file)
      //       profil.visible = true
         }

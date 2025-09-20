@@ -77,7 +77,6 @@ Item {
                     if(txtTitle.text === "" || txtDescription.text === "") console.log("Напишите текст")
                     else {
                         myModel.setImageToDB(fileDialog1.file,1,txtTitle.text,txtDescription.text)
-
                     }
                     }
             }
@@ -114,7 +113,6 @@ Item {
         MouseArea {
             anchors.fill: parent
             onClicked: {
-                myModel.refreshModel()
                 stackPage.pop()
             }
             }
