@@ -254,17 +254,21 @@ Item {
                 }
             }
             footer: Rectangle {
-                width: parent.width
+                width: 204+174
                 height: 50
                 color: "white"
                 Button {
-                        anchors.left: parent.left
-                        width: parent.width/2
-                        height: 50
-                        text: "Назад"
-                        enabled: myMainModel.hasPreviousPage
-                        onClicked: myMainModel.loadPreviousPage()
+                    anchors.left: parent.left
+                    width: parent.width/2
+                    height: 50
+                    text: "Назад"
+                    enabled: myMainModel.hasPreviousPage
+                    onClicked: myMainModel.loadPreviousPage()
+                    background: Rectangle{
+                        anchors.fill:parent
+                        color: Qt.rgba(255/255,211/255,181/255,1);
                     }
+                }
                 Button {
                     anchors.right: parent.right
                     width: parent.width/2
@@ -272,6 +276,10 @@ Item {
                     text: "Вперед"
                     enabled: myMainModel.hasNextPage
                     onClicked: myMainModel.loadNextPage()
+                    background: Rectangle{
+                        anchors.fill:parent
+                        color: Qt.rgba(255/255,211/255,181/255,1);
+                    }
                 }
             }
         }

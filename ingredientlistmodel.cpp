@@ -39,6 +39,30 @@ QHash<int, QByteArray> IngredientListModel::roleNames() const
     return roles;
 }
 
+void IngredientListModel::addIngredient(QString titleRecepie, QString ingredient, QString valueIngridient)
+{
+    QSqlQuery queryId;
+    QString idRecepie;
+    queryId.prepare("SELECT id FROM recepies WHERE name_recepie = '"+titleRecepie+"'");
+    queryId.exec();
+    queryId.next();
+    idRecepie = queryId.value(0).toString();
+    QString idIngredient;
+    QSqlQuery queryIdIngredient;
+    queryId.prepare("SELECT id FROM ingredients WHERE name = '"+ingredient+"'");
+    queryId.exec();
+    queryId.next();
+    idIngredient = queryId.value(0).toString();
+    QSqlQuery query;
+    query.prepare("INSERT INTO recepie_ingridients ( recepie_id, ingredient_id,unit_id,value)"
+                  "VALUES ("+idRecepie+","+idIngredient+",1,"+valueIngridient+");");
+    if(query.exec()) {
+        qDebug()<<idRecepie;
+        loadDataFromDB(titleRecepie);
+    }
+    else qDebug()<<"erorr";
+}
+
 void IngredientListModel::loadDataFromDB(QString titleRecepie)
 {
     beginResetModel();
@@ -94,6 +118,29 @@ void IngredientListModel::loadTitleText(QString titleRecepie)
                     titleTextRecepie = query.value(0).toString();
                     emit textTileRecepie(titleTextRecepie);
                 }
+}
+void IngredientListModel::deleteIngredient(QString titleRecepie, QString ingredient)
+{
+    qDebug()<<"ingr"<<ingredient;
+    QSqlQuery queryId;
+    QString idRecepie;
+    queryId.prepare("SELECT id FROM recepies WHERE name_recepie = '"+titleRecepie+"'");
+    queryId.exec();
+    queryId.next();
+    idRecepie = queryId.value(0).toString();
+    QString idIngredient;
+    queryId.prepare("SELECT id FROM ingredients WHERE name = '"+ingredient+"'");
+    queryId.exec();
+    queryId.next();
+    idIngredient = queryId.value(0).toString();
+    QSqlQuery query;
+    qDebug()<<idRecepie<<idIngredient;
+    query.prepare("DELETE FROM recepie_ingridients WHERE recepie_id = '"+idRecepie+"' AND ingredient_id = '"+idIngredient+"';");
+    if(query.exec()) {
+        qDebug()<<"succesfull";
+        loadDataFromDB(titleRecepie);
+    }
+    else qDebug()<<"erorr";
 
 }
 

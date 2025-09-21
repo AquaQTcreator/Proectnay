@@ -289,7 +289,7 @@ void MyModel::loadPage(int page)
 
         if (imageData.isNull() || imageData.toByteArray().isEmpty()) {
             qDebug() << "Фото отсутствует (NULL), загружаем замену";
-            QString defaultImagePath = ":/assets/image/dinner.png";
+            QString defaultImagePath = ":/assets/image/default.png";
 
             QFile file(defaultImagePath);
             if (file.open(QIODevice::ReadOnly)) {

@@ -6,7 +6,7 @@
 #include "mymodel.h"
 #include "profiluser.h"
 #include "ingredientlistmodel.h"
-
+#include "addigredient.h"
 static MyModel myModel;
 
 int main(int argc, char *argv[])
@@ -28,6 +28,8 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("profilUser",&myProfil);
     IngredientListModel myIngredientsModel;
     engine.rootContext()->setContextProperty("myListModel",&myIngredientsModel);
+    AddIgredient myAddIngreadientModel;
+    engine.rootContext()->setContextProperty("addIngredientModel",&myAddIngreadientModel);
     engine.rootContext()->setContextProperty("myMainModel",&myModel);
     qmlRegisterType<Authorizacia>("AuthorizaciaClass",1,0,"AuthorizaciaClass");
     qmlRegisterType<SignUp>("SignUp",1,0,"SignUp");

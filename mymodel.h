@@ -61,7 +61,7 @@ private:
     int m_currentPage = 0;
     int m_totalPages = 0;
     int m_totalItems = 0;
-    const int ITEMS_PER_PAGE = 5;
+    const int ITEMS_PER_PAGE = 8;
     int m_offset = 0;
     QList<Item> m_items;
 signals:

@@ -137,4 +137,8 @@ ApplicationWindow {
         id:addPreview
         visible: false
     }
+    AddIngredienList {
+        id:addIngredient
+        visible: false
+    }
 }

@@ -25,8 +25,10 @@ public:
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole ) const override;
     QHash<int , QByteArray> roleNames() const override;
+    Q_INVOKABLE void addIngredient(QString titleRecepie,QString ingredient,QString valueIngridient);
     Q_INVOKABLE void loadDataFromDB(QString titleRecepie);
     Q_INVOKABLE void loadTitleText(QString titleRecepie);
+    Q_INVOKABLE void deleteIngredient(QString titleRecepie,QString ingredient);
 private:
     QVector<IngredientItem> m_items;
 signals:

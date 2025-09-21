@@ -35,5 +35,11 @@
         <file>PrewieIngridients.qml</file>
         <file>PreviewRecepie.qml</file>
         <file>AddPagePreview.qml</file>
+        <file>AddIngredienList.qml</file>
+        <file>assets/image/Send.png</file>
+        <file>assets/image/SendRed.png</file>
+        <file>assets/image/Timer.qml</file>
+        <file>assets/image/Trash_2.png</file>
+        <file>assets/image/default.png</file>
     </qresource>
 </RCC>

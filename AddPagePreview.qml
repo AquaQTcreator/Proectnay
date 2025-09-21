@@ -53,7 +53,7 @@ Item {
             radius: 10
             Button {
                 id:sendWithImg
-                text: "OK"
+                text: "+"
                 anchors.bottom: parent.bottom
                 anchors.right:  parent.right
                 onClicked: {
@@ -70,13 +70,13 @@ Item {
                 }
             }
             Button {
-                text: "NEOK"
+                text: "Без фото "
                 anchors.bottom: parent.bottom
                 anchors.right:  sendWithImg.left
                 onClicked: {
                     if(txtTitle.text === "" || txtDescription.text === "") console.log("Напишите текст")
                     else {
-                        myModel.setImageToDB(fileDialog1.file,1,txtTitle.text,txtDescription.text)
+                        myMainModel.setImageToDB(fileDialog1.file,1,txtTitle.text,txtDescription.text)
                     }
                     }
             }
@@ -88,6 +88,11 @@ Item {
         y:631
         width: 184
         height: 184
+        onClicked: {
+            myListModel.loadDataFromDB(txtTitle.text)
+            addIngredient.nameRecepie = txtTitle.text
+            stackPage.push(addIngredient)
+        }
         background: Rectangle {
             anchors.fill: parent
             color: Qt.rgba(201/255,55/255,86/255,1);

@@ -9,7 +9,7 @@ Item {
         Label {
             x:82
             y:33
-            text: "Ингридиенты"
+            text: "Ингрeдиенты"
             color: Qt.rgba(46/255,46/255,46/255,1)
             font {
                 bold: true

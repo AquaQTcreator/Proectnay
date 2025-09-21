@@ -84,7 +84,7 @@ Item {
                 else {
                     if (checkName.checked) parametr = "Name"
                 else parametr = "Ingridient"
-                    myModel.seachName(textFieldSeach.text,parametr);
+                    myMainModel.seachName(textFieldSeach.text,parametr);
                     poisk();
                 }
             }
